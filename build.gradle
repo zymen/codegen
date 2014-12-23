@@ -1,6 +1,5 @@
 apply plugin: 'groovy'
 
-
 dependencies {
   compile "com.github.jknack:handlebars:2.0"
 }
