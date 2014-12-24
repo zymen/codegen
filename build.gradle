@@ -1,5 +1,12 @@
 apply plugin: 'groovy'
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-  compile "com.github.jknack:handlebars:2.0"
+    compile "org.codehaus.groovy:groovy-all:2.3.8"
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+
+    compile 'com.github.jknack:handlebars:2.0.0'
 }
