@@ -23,7 +23,7 @@ class GenerateEntityCommand implements Command{
 
     @Override
     def execute() {
-        String destinationDirectory = "src/main/groovy/${entity.package}/model/${entity.name}"
-        println "creating directory if required..."
+        String destinationDirectory = "src/main/groovy/${entity.pack}/model"
+        this.dirFileService.createDirectory(destinationDirectory)
     }
 }

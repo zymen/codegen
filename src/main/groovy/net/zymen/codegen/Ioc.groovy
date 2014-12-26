@@ -21,7 +21,7 @@ class Ioc {
         this
     }
 
-    public <T> T get(Object key) {
-        (T)this.obj.get(key)
+    public <T> T get(Class<T> type) {
+        (T)this.container.get(type)
     }
 }
