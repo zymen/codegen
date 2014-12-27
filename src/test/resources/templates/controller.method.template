@@ -1,5 +1,6 @@
 
-	@RequestMapping(method = Request.GET)
-	def {{parameters.name}} () {
-		this.{{entity.name}}Service.findOne(
+	@RequestMapping(value = "/{{parameters.name}}", method = RequestMethod.GET)
+	@ResponseBody
+	String {{parameters.name}} () {
+		return "{{parameters.name}}"
 	}
