@@ -1,11 +1,11 @@
-package net.zymen.codegen.commands
+package net.zymen.codegen.commands.CreateEntityCommandTests
 
 import net.zymen.codegen.Context
-import net.zymen.codegen.model.Entity
+import net.zymen.codegen.commands.CreateEntityCommand
 import net.zymen.codegen.service.DirFileService
 import spock.lang.Specification
 
-class CreateEntityCommandTest extends Specification {
+class SimpleUsageCreateEntityCommandTest extends Specification {
     def "should create directory for destination file"() {
         given:
             def dirFileService = Mock(DirFileService)

@@ -16,6 +16,8 @@ class CreateEntityCommand implements Command {
 
     String layer = "model"
 
+    String otherLayerInjections
+
     public CreateEntityCommand() {
         this.dirFileService = Ioc.instance().get(DirFileService.class)
     }
@@ -28,7 +30,7 @@ class CreateEntityCommand implements Command {
         String destinationDirectory = "src/main/groovy/${entityPackageDirectory}/${layer}"
         this.dirFileService.createDirectory(destinationDirectory)
 
-        String entityOutputFile = destinationDirectory + "/" + entity.name + ".groovy"
+        String entityOutputFile = destinationDirectory + "/" + name + ".groovy"
 
         if (this.dirFileService.fileExists(entityOutputFile))
             return

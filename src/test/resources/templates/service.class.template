@@ -1,4 +1,4 @@
-package {{context.topPackage}}.model;
+package {{context.topPackage}}.service;
 
 class {{entity.name}} {
 
