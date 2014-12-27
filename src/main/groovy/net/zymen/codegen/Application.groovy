@@ -7,8 +7,17 @@ import net.zymen.codegen.service.DirFileService
 import net.zymen.codegen.service.SystemDirFileService
 
 class Application {
-    static def main(String[] args) {
+    private def configure() {
         Ioc.instance().register(DirFileService.class, new SystemDirFileService())
+    }
+
+    def run() {
+        this.configure()
+    }
+
+    static def main(String[] args) {
+        Application app = new Application()
+        app.run()
 
         Command command = new GenerateEntityCommand(new Entity(name: "Book", pack: "zymen"));
         command.execute()

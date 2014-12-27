@@ -5,4 +5,9 @@ class SystemDirFileService implements DirFileService{
     def createDirectory(String directory) {
         new File(directory).mkdirs()
     }
+
+    @Override
+    def writeIntoFile(String filename, String content) {
+        new File(filename).write(content)
+    }
 }

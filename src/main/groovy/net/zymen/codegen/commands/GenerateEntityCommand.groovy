@@ -6,7 +6,7 @@ import net.zymen.codegen.model.Entity
 import net.zymen.codegen.service.DirFileService
 import net.zymen.codegen.service.OutputBuilderService
 
-class GenerateEntityCommand implements Command{
+class GenerateEntityCommand implements Command {
     DirFileService dirFileService
 
     Entity entity
@@ -31,6 +31,6 @@ class GenerateEntityCommand implements Command{
         OutputBuilderService outputBuilderService = new OutputBuilderService()
         String output = outputBuilderService.output(TemplateFactory.fromFile("entity.template"), this.entity.properties)
 
-        new File(destinationDirectory + "/" + this.entity.name + ".java").write(output)
+        this.dirFileService.writeIntoFile(destinationDirectory + "/" + this.entity.name + ".java", output)
     }
 }
