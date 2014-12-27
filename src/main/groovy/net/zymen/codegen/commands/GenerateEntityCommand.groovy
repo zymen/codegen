@@ -25,12 +25,18 @@ class GenerateEntityCommand implements Command {
 
     @Override
     def execute() {
-        String destinationDirectory = "src/main/groovy/${entity.pack}/model"
+        String entityPackageDirectory = this.entity.pack.replace(".", "/")
+        String destinationDirectory = "src/main/groovy/${entityPackageDirectory}/model"
         this.dirFileService.createDirectory(destinationDirectory)
+
+        String entityOutputFile = destinationDirectory + "/" + this.entity.name + ".java"
+
+        if (this.dirFileService.fileExists(entityOutputFile))
+            return
 
         OutputBuilderService outputBuilderService = new OutputBuilderService()
         String output = outputBuilderService.output(TemplateFactory.fromFile("entity.template"), this.entity.properties)
 
-        this.dirFileService.writeIntoFile(destinationDirectory + "/" + this.entity.name + ".java", output)
+        this.dirFileService.writeIntoFile(entityOutputFile, output)
     }
 }

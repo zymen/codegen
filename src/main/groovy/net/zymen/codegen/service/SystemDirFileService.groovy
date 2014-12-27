@@ -10,4 +10,9 @@ class SystemDirFileService implements DirFileService{
     def writeIntoFile(String filename, String content) {
         new File(filename).write(content)
     }
+
+    @Override
+    Boolean fileExists(String filename) {
+        new File(filename).exists()
+    }
 }
