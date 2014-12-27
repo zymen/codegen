@@ -7,36 +7,38 @@ import net.zymen.codegen.model.Entity
 import net.zymen.codegen.service.DirFileService
 import net.zymen.codegen.service.OutputBuilderService
 
-class CreateEntityCommand implements Command {
+class CreateMethodCommand implements Command {
     DirFileService dirFileService
 
     Context context
 
+    String entity
+
     String name
 
-    String layer = "model"
+    String layer
 
-    public CreateEntityCommand() {
+    public CreateMethodCommand() {
         this.dirFileService = Ioc.instance().get(DirFileService.class)
     }
 
     @Override
     def execute() {
+        println "Creating method for entity ${entity} with name ${name} for layer ${layer}"
         Entity entity = new Entity(name: name)
 
         String entityPackageDirectory = context.topPackage.replace(".", "/")
         String destinationDirectory = "src/main/groovy/${entityPackageDirectory}/${layer}"
         this.dirFileService.createDirectory(destinationDirectory)
 
-        String entityOutputFile = destinationDirectory + "/" + entity.name + ".groovy"
+        String className = this.entity + layer[0].toUpperCase() + layer.substring(1)
+        String entityOutputFile = destinationDirectory + "/${className}.groovy"
 
-        if (this.dirFileService.fileExists(entityOutputFile))
-            return
 
         OutputBuilderService outputBuilderService = new OutputBuilderService()
-        String output = outputBuilderService.output(TemplateFactory.fromFile("${layer}.class.template"),
-                ['entity': entity.properties, 'context': context.properties])
+        String output = outputBuilderService.output(TemplateFactory.fromFile("${layer}.method.template"),
+                ['parameters': entity.properties, 'context': context.properties])
 
-        this.dirFileService.writeIntoFile(entityOutputFile, output)
+        this.dirFileService.appendBeforeClassEnd(entityOutputFile, output)
     }
 }

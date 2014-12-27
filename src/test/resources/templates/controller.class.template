@@ -1,0 +1,8 @@
+package {{context.topPackage}}.controller;
+
+@RestController(mapping = "/{{entity.name}}")
+@Consumes("application/json")
+@Produces("application/json")
+class {{entity.name}} {
+
+}

@@ -1,0 +1,5 @@
+
+	@RequestMapping(method = Request.GET)
+	def {{parameters.name}} () {
+		this.{{entity.name}}Service.findOne(
+	}
