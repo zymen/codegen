@@ -34,7 +34,7 @@ public class App {
         cmd.add("create method name:insert entity:Method layer:service")
         cmd.add("create method name:update entity:Method layer:service")
 
-        cmd.add("create entity name:MethodController layer:controller")
+        cmd.add("create entity name:MethodController entity:Method layer:controller")
         cmd.add("create method name:delete entity:Method layer:controller")
         cmd.add("create method name:find entity:Method layer:controller")
 

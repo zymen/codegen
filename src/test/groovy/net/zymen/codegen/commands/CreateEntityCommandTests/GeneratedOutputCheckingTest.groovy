@@ -52,7 +52,7 @@ class TestService {
         given:
         def dirFileService = Mock(DirFileService)
             dirFileService.fileExists(_) >> { false }
-            CreateEntityCommand command = new CreateEntityCommand(name: 'TestController', layer: 'controller', context: new Context(topPackage: 'pack'))
+            CreateEntityCommand command = new CreateEntityCommand(name: 'TestController', entity: 'Test', layer: 'controller', context: new Context(topPackage: 'pack'))
             command.dirFileService = dirFileService
 
         when:
@@ -77,7 +77,7 @@ import javax.ws.rs.Produces;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/TestController")
+@RequestMapping("/test")
 @Consumes("application/json")
 @Component
 class TestController {

@@ -16,6 +16,8 @@ class CreateEntityCommand implements Command {
 
     String layer = "model"
 
+    String entity
+
     String otherLayerInjections
 
     public CreateEntityCommand() {
@@ -35,9 +37,12 @@ class CreateEntityCommand implements Command {
         if (this.dirFileService.fileExists(entityOutputFile))
             return
 
+        Map<String, String> properties = new HashMap<String, String>()
+        properties.put('entityName', this.entity)
+
         OutputBuilderService outputBuilderService = new OutputBuilderService()
         String output = outputBuilderService.output(TemplateFactory.fromFile("${layer}.class.template"),
-                ['entity': entity.properties, 'context': context.properties])
+                ['entity': entity.properties, 'context': context.properties, 'class': properties])
 
         this.dirFileService.writeIntoFile(entityOutputFile, output)
     }
