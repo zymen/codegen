@@ -1,5 +1,5 @@
-package {{pack}}.model;
+package {{context.topPackage}}.model;
 
-class {{name}} {
+class {{entity.name}} {
 
 }

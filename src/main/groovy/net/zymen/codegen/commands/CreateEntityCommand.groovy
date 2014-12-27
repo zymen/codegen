@@ -1,41 +1,39 @@
 package net.zymen.codegen.commands
 
+import net.zymen.codegen.Context
 import net.zymen.codegen.Ioc
 import net.zymen.codegen.factory.TemplateFactory
 import net.zymen.codegen.model.Entity
 import net.zymen.codegen.service.DirFileService
 import net.zymen.codegen.service.OutputBuilderService
 
-class GenerateEntityCommand implements Command {
+class CreateEntityCommand implements Command {
     DirFileService dirFileService
 
-    Entity entity
+    Context context
 
-    public GenerateEntityCommand(Entity entity) {
-        this(
-                entity,
-                Ioc.instance().get(DirFileService.class)
-        )
-    }
+    String name
 
-    public GenerateEntityCommand(Entity entity, DirFileService dirFileService) {
-        this.entity = entity
-        this.dirFileService = dirFileService
+    public CreateEntityCommand() {
+        this.dirFileService = Ioc.instance().get(DirFileService.class)
     }
 
     @Override
     def execute() {
-        String entityPackageDirectory = this.entity.pack.replace(".", "/")
+        Entity entity = new Entity(name: name)
+
+        String entityPackageDirectory = context.topPackage.replace(".", "/")
         String destinationDirectory = "src/main/groovy/${entityPackageDirectory}/model"
         this.dirFileService.createDirectory(destinationDirectory)
 
-        String entityOutputFile = destinationDirectory + "/" + this.entity.name + ".groovy"
+        String entityOutputFile = destinationDirectory + "/" + entity.name + ".groovy"
 
         if (this.dirFileService.fileExists(entityOutputFile))
             return
 
         OutputBuilderService outputBuilderService = new OutputBuilderService()
-        String output = outputBuilderService.output(TemplateFactory.fromFile("entity.template"), this.entity.properties)
+        String output = outputBuilderService.output(TemplateFactory.fromFile("entity.template"),
+                ['entity': entity.properties, 'context': context.properties])
 
         this.dirFileService.writeIntoFile(entityOutputFile, output)
     }

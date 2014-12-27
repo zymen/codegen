@@ -1,15 +1,17 @@
 package net.zymen.codegen.commands
 
+import net.zymen.codegen.Context
 import net.zymen.codegen.model.Entity
 import net.zymen.codegen.service.DirFileService
 import spock.lang.Specification
 
-class GenerateEntityCommandTest extends Specification {
+class CreateEntityCommandTest extends Specification {
     def "should create directory for destination file"() {
         given:
             def dirFileService = Mock(DirFileService)
             dirFileService.fileExists(_) >> { false }
-            GenerateEntityCommand command = new GenerateEntityCommand(new Entity(name: 'test', pack: 'pack'), dirFileService)
+            CreateEntityCommand command = new CreateEntityCommand(name: 'test', context: new Context(topPackage: 'pack'))
+            command.dirFileService = dirFileService
 
         when:
             command.execute()
@@ -22,7 +24,8 @@ class GenerateEntityCommandTest extends Specification {
         given:
             def dirFileService = Mock(DirFileService)
             dirFileService.fileExists(_) >> { false }
-            GenerateEntityCommand command = new GenerateEntityCommand(new Entity(name: 'test', pack: 'net.zymen.codegen'), dirFileService)
+            CreateEntityCommand command = new CreateEntityCommand(name: 'test', context: new Context(topPackage: 'net.zymen.codegen'))
+            command.dirFileService = dirFileService
 
         when:
             command.execute()
@@ -35,7 +38,8 @@ class GenerateEntityCommandTest extends Specification {
         given:
             def dirFileService = Mock(DirFileService)
             dirFileService.fileExists(_) >> { true }
-            GenerateEntityCommand command = new GenerateEntityCommand(new Entity(name: 'test', pack: 'net.zymen.codegen'), dirFileService)
+            CreateEntityCommand command = new CreateEntityCommand(name: 'test', context: new Context(topPackage: 'net.zymen.codegen'))
+            command.dirFileService = dirFileService
 
         when:
             command.execute()
