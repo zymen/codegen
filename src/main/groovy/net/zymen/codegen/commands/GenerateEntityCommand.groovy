@@ -29,7 +29,7 @@ class GenerateEntityCommand implements Command {
         String destinationDirectory = "src/main/groovy/${entityPackageDirectory}/model"
         this.dirFileService.createDirectory(destinationDirectory)
 
-        String entityOutputFile = destinationDirectory + "/" + this.entity.name + ".java"
+        String entityOutputFile = destinationDirectory + "/" + this.entity.name + ".groovy"
 
         if (this.dirFileService.fileExists(entityOutputFile))
             return
