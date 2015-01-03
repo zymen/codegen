@@ -14,7 +14,7 @@ class CreatePropertyCommand implements Command {
 
     String name
 
-    String type
+    String dataType
 
     String entity
 
@@ -36,7 +36,7 @@ class CreatePropertyCommand implements Command {
         String entityOutputFile = destinationDirectory + "/${className}.groovy"
 
         OutputBuilderService outputBuilderService = new OutputBuilderService()
-        String output = outputBuilderService.output(TemplateFactory.fromFile("create-property/${type}.property.template"),
+        String output = outputBuilderService.output(TemplateFactory.fromFile("create-property/${dataType}.property.template"),
                 ['parameters': this.properties, 'context': context.properties])
 
         this.dirFileService.appendBeforeClassEnd(entityOutputFile, output)
