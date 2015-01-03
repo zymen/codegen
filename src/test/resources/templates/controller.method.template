@@ -1,6 +1,0 @@
-
-	@RequestMapping(value = "/{{parameters.name}}", method = RequestMethod.GET)
-	@ResponseBody
-	String {{parameters.name}} () {
-		return "{{parameters.name}}"
-	}

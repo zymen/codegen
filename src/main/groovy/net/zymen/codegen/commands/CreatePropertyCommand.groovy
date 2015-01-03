@@ -12,9 +12,6 @@ class CreatePropertyCommand implements Command {
 
     String entity
 
-    public CreatePropertyCommand() {
-    }
-
     @Override
     def execute() {
         println "Adding property with name ${name} for entity ${entity}"
