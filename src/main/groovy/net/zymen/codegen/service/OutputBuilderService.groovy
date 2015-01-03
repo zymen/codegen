@@ -19,6 +19,17 @@ class OutputBuilderService {
             }
         })
 
+        handlebars.registerHelper('toGroovyType', new Helper<String>() {
+            public CharSequence apply(String input, Options options) {
+                if (input.toLowerCase().equals("text")) {
+                    return "String"
+                }
+
+                return "def"
+            }
+        })
+
+
         com.github.jknack.handlebars.Template templateObject = handlebars.compileInline(template)
         templateObject.apply(parameters)
     }

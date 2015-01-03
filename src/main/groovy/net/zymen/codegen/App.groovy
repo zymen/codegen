@@ -27,7 +27,7 @@ public class App {
         cmd.add("create file template:main output:App.groovy")
 
         cmd.add("create entity name:Method")
-        //cmd.add("create property name:name type:text entity:Method")
+        cmd.add("create property name:name dataType:text entity:Method")
 
         cmd.add("create entity name:MethodService layer:service")
         cmd.add("create method name:delete entity:Method layer:service")
