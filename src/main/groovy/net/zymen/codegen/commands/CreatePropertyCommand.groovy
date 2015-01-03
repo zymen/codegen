@@ -32,7 +32,7 @@ class CreatePropertyCommand implements Command {
         String destinationDirectory = "src/main/groovy/${entityPackageDirectory}/${layer}"
         this.dirFileService.createDirectory(destinationDirectory)
 
-        String className = this.entity + layer[0].toUpperCase() + layer.substring(1)
+        String className = this.entity
         String entityOutputFile = destinationDirectory + "/${className}.groovy"
 
         OutputBuilderService outputBuilderService = new OutputBuilderService()

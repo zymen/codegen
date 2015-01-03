@@ -1,1 +1,1 @@
-{{properties.type}} {{properties.name}}
+{{parameters.type}} {{parameters.name}}
