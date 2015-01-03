@@ -1,1 +1,1 @@
-{{parameters.type}} {{parameters.name}}
+{{if parameters.type == "text" }}String{{else}}def{{endif}} {{parameters.name}}
