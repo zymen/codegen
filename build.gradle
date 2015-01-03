@@ -1,4 +1,7 @@
 apply plugin: 'groovy'
+apply plugin: 'application'
+
+mainClassName = 'net.zymen.codegen.App'
 
 repositories {
     mavenCentral()

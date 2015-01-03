@@ -5,5 +5,7 @@ public interface DirFileService {
 
     def writeIntoFile(String filename, String content)
 
+    def appendBeforeClassEnd(String filename, String content)
+
     Boolean fileExists(String filename)
 }

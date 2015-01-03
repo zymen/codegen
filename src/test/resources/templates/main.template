@@ -1,0 +1,19 @@
+package {{context.topPackage}}
+
+import groovy.transform.CompileStatic
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.ApplicationContext;
+
+@CompileStatic
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan("{{context.topPackage}}")
+public class App {
+	public static void main(String[] args) {
+		println "Inside main"
+		ApplicationContext context = SpringApplication.run(App.class, args);
+	}
+}
