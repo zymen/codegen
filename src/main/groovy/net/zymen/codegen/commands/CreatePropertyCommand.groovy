@@ -1,12 +1,7 @@
 package net.zymen.codegen.commands
 
 import net.zymen.codegen.Context
-import net.zymen.codegen.Ioc
-import net.zymen.codegen.factory.TemplateFactory
-import net.zymen.codegen.model.Entity
 import net.zymen.codegen.service.CommandExecutionBuilder
-import net.zymen.codegen.service.DirFileService
-import net.zymen.codegen.service.OutputBuilderService
 
 class CreatePropertyCommand implements Command {
     Context context
