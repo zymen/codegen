@@ -21,6 +21,17 @@ class CreateGradleProjectCommand implements Command {
     def execute() {
         String outputFile = "build.gradle"
 
+        /*
+        xyz.inContext(context)
+                .useTemplatesInOrder(
+                    "build.property.template"
+        )
+                .registerTemplateCommandParameters()
+                .insideProjectDirectory("${layer}")
+                .appendOutputToFile("${entity}.groovy")
+                .create()
+        */
+
         if (this.dirFileService.fileExists(outputFile))
             return
 
