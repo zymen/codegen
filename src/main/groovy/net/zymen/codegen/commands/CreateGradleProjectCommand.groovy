@@ -15,6 +15,7 @@ class CreateGradleProjectCommand implements Command {
                 "build.gradle.template"
             )
             .registerTemplateCommandParameters(this)
+            .registerTemplateContext()
             .insideProjectDirectory()
             .writeIntoFileWithoutOverwriting("build.gradle")
             .run()

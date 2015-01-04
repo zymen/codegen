@@ -1,13 +1,16 @@
 package net.zymen.codegen
 
-import groovy.transform.CompileStatic
+import org.kohsuke.args4j.CmdLineParser
+import org.kohsuke.args4j.Option
+
 import net.zymen.codegen.commands.Command
-import net.zymen.codegen.commands.CreateEntityCommand
-import net.zymen.codegen.model.Entity
 import net.zymen.codegen.service.DirFileService
 import net.zymen.codegen.service.SystemDirFileService
 
 class Application {
+    @Option(name = "-f", usage = "input file")
+    File inputFile
+
     private def configure() {
         Ioc.instance().register(DirFileService.class, new SystemDirFileService())
     }
@@ -42,10 +45,30 @@ class Application {
         commands.each { executeCommand(context, it) }
     }
 
+    def main(String[] args) {
+        CmdLineParser parser = new CmdLineParser(this)
+
+        try {
+            parser.parseArgument(args)
+
+            if ( inputFile ) {
+                def content = inputFile.readLines()
+                        .findAll { it.trim().length() > 1 }
+                        //.removeAll { it.trim().startsWith('#') }
+
+                Context context = new Context(topPackage: "net.zymen.xxx")
+
+                run(context, content)
+            }
+
+        }catch(Exception e) {
+            println e.message
+        }
+    }
+
     def run(Context context, List<String> cmd) {
         this.configure()
         this.executeCommands(context, cmd)
     }
-
 }
 

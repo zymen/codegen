@@ -22,7 +22,7 @@ dependencies {
     compile("org.codehaus.groovy:groovy-all:+")
 
     compile "org.springframework.boot:spring-boot-starter-web"
-    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    //compile "org.springframework.boot:spring-boot-starter-data-jpa"
     compile 'org.springframework.boot:spring-boot-starter-remote-shell'
     compile 'org.hsqldb:hsqldb:2.3.2'
 
@@ -32,5 +32,4 @@ dependencies {
     compile 'org.glassfish.jersey.core:jersey-server:2.13'
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.13'
     compile 'org.glassfish.jersey.containers:jersey-container-jdk-http:2.13'
-
 }
