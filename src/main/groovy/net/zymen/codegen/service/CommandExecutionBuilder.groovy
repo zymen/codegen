@@ -100,10 +100,10 @@ class CommandExecutionBuilder {
     }
 
     def run() {
+        this.dirFileService.createDirectory(this.topPackageDirectory)
+
         if (this.actionType == ActionType.WRITE && this.outputFileOverwrite == false && this.dirFileService.fileExists(outputFile))
             return
-
-        this.dirFileService.createDirectory(this.topPackageDirectory)
 
         OutputBuilderService outputBuilderService = new OutputBuilderService()
         String output = outputBuilderService.output(

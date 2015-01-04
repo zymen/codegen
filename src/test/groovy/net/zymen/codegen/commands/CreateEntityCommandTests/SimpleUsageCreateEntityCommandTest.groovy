@@ -1,6 +1,7 @@
 package net.zymen.codegen.commands.CreateEntityCommandTests
 
 import net.zymen.codegen.Context
+import net.zymen.codegen.Ioc
 import net.zymen.codegen.commands.CreateEntityCommand
 import net.zymen.codegen.service.DirFileService
 import spock.lang.Specification
@@ -10,8 +11,8 @@ class SimpleUsageCreateEntityCommandTest extends Specification {
         given:
             def dirFileService = Mock(DirFileService)
             dirFileService.fileExists(_) >> { false }
+            Ioc.instance().register(DirFileService.class, dirFileService)
             CreateEntityCommand command = new CreateEntityCommand(name: 'test', context: new Context(topPackage: 'pack'))
-            command.dirFileService = dirFileService
 
         when:
             command.execute()
@@ -24,8 +25,8 @@ class SimpleUsageCreateEntityCommandTest extends Specification {
         given:
             def dirFileService = Mock(DirFileService)
             dirFileService.fileExists(_) >> { false }
+            Ioc.instance().register(DirFileService.class, dirFileService)
             CreateEntityCommand command = new CreateEntityCommand(name: 'test', context: new Context(topPackage: 'net.zymen.codegen'))
-            command.dirFileService = dirFileService
 
         when:
             command.execute()
@@ -38,8 +39,8 @@ class SimpleUsageCreateEntityCommandTest extends Specification {
         given:
             def dirFileService = Mock(DirFileService)
             dirFileService.fileExists(_) >> { true }
+            Ioc.instance().register(DirFileService.class, dirFileService)
             CreateEntityCommand command = new CreateEntityCommand(name: 'test', context: new Context(topPackage: 'net.zymen.codegen'))
-            command.dirFileService = dirFileService
 
         when:
             command.execute()
