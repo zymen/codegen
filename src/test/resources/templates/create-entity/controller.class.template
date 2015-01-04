@@ -14,9 +14,9 @@ import javax.ws.rs.Produces;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/{{toLowerCase class.entityName}}")
+@RequestMapping("/{{toLowerCase command.entity}}")
 @Consumes("application/json")
 @Component
-class {{entity.name}} {
+class {{command.name}} {
 
 }

@@ -1,5 +1,5 @@
 package {{context.topPackage}}.service;
 
-class {{entity.name}} {
+class {{command.name}} {
 
 }

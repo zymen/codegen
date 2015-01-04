@@ -67,9 +67,15 @@ class CommandExecutionBuilder {
         this.registerTemplateData("context", this.context.properties)
     }
 
-    CommandExecutionBuilder insideTopPackageDirectory(String directory) {
+    CommandExecutionBuilder insideTopPackageDirectory(String directory = "") {
         String entityPackageDirectory = context.topPackage.replace(".", "/")
-        this.topPackageDirectory = "src/main/groovy/${entityPackageDirectory}/${directory}"
+
+        this.topPackageDirectory = "src/main/groovy/${entityPackageDirectory}"
+
+        if (directory != "") {
+            this.topPackageDirectory += "/${directory}"
+        }
+
         return this
     }
 
@@ -100,10 +106,10 @@ class CommandExecutionBuilder {
     }
 
     def run() {
+        this.dirFileService.createDirectory(this.topPackageDirectory)
+
         if (this.actionType == ActionType.WRITE && this.outputFileOverwrite == false && this.dirFileService.fileExists(outputFile))
             return
-
-        this.dirFileService.createDirectory(this.topPackageDirectory)
 
         OutputBuilderService outputBuilderService = new OutputBuilderService()
         String output = outputBuilderService.output(
