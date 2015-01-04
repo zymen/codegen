@@ -67,9 +67,15 @@ class CommandExecutionBuilder {
         this.registerTemplateData("context", this.context.properties)
     }
 
-    CommandExecutionBuilder insideTopPackageDirectory(String directory) {
+    CommandExecutionBuilder insideTopPackageDirectory(String directory = "") {
         String entityPackageDirectory = context.topPackage.replace(".", "/")
-        this.topPackageDirectory = "src/main/groovy/${entityPackageDirectory}/${directory}"
+
+        this.topPackageDirectory = "src/main/groovy/${entityPackageDirectory}"
+
+        if (directory != "") {
+            this.topPackageDirectory += "/${directory}"
+        }
+
         return this
     }
 
