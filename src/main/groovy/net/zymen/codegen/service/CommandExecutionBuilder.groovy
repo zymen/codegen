@@ -6,6 +6,11 @@ import net.zymen.codegen.commands.Command
 import net.zymen.codegen.factory.TemplateFactory
 
 class CommandExecutionBuilder {
+    private enum ActionType {
+        APPEND,
+        WRITE
+    }
+
     Context context
 
     String templateGroupName
@@ -16,7 +21,11 @@ class CommandExecutionBuilder {
 
     String outputFileName
 
+    Boolean outputFileOverwrite = null
+
     String topPackageDirectory
+
+    ActionType actionType
 
     DirFileService dirFileService
 
@@ -64,12 +73,36 @@ class CommandExecutionBuilder {
         return this
     }
 
-    CommandExecutionBuilder appendOutputToFile(String outputFilename) {
-        this.outputFileName = outputFilename
+    CommandExecutionBuilder insideProjectDirectory(String directory = "") {
+        this.topPackageDirectory = directory
         return this
     }
 
+    CommandExecutionBuilder writeIntoFileWithoutOverwriting(String filename) {
+        this.outputFileName = filename
+        this.outputFileOverwrite = false
+        this.actionType = ActionType.WRITE
+        return this
+    }
+
+    CommandExecutionBuilder appendOutputToFile(String outputFilename) {
+        this.outputFileName = outputFilename
+        this.actionType = ActionType.APPEND
+        return this
+    }
+
+    private String getOutputFile() {
+        if (this.topPackageDirectory.trim().length() > 0) {
+            this.topPackageDirectory + "/" + this.outputFileName
+        } else {
+            this.outputFileName
+        }
+    }
+
     def run() {
+        if (this.actionType == ActionType.WRITE && this.outputFileOverwrite == false && this.dirFileService.fileExists(outputFile))
+            return
+
         this.dirFileService.createDirectory(this.topPackageDirectory)
 
         OutputBuilderService outputBuilderService = new OutputBuilderService()
@@ -77,6 +110,10 @@ class CommandExecutionBuilder {
                 TemplateFactory.fromFile("${templateGroupName}/${fileTemplates[0]}"),
                 this.templateParameters)
 
-        this.dirFileService.appendBeforeClassEnd(this.topPackageDirectory + "/" + this.outputFileName + ".groovy", output)
+        if (this.actionType == ActionType.APPEND) {
+            this.dirFileService.appendBeforeClassEnd(outputFile, output)
+        } else if (this.actionType == ActionType.WRITE) {
+            this.dirFileService.writeIntoFile(outputFile, output)
+        }
     }
 }

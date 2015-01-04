@@ -26,7 +26,7 @@ class CreatePropertyCommand implements Command {
             .registerTemplateCommandParameters(this)
             .registerTemplateContext()
             .insideTopPackageDirectory("model")
-            .appendOutputToFile("${entity}")
+            .appendOutputToFile("${entity}.groovy")
             .run()
     }
 }
