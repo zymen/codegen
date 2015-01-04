@@ -1,13 +1,9 @@
 package net.zymen.codegen.commands
 
 import net.zymen.codegen.Context
-import net.zymen.codegen.Ioc
 import net.zymen.codegen.service.CommandExecutionBuilder
-import net.zymen.codegen.service.DirFileService
 
 class CreateEntityCommand implements Command {
-    DirFileService dirFileService
-
     Context context
 
     String name
@@ -15,10 +11,6 @@ class CreateEntityCommand implements Command {
     String layer = "model"
 
     String entity
-
-    public CreateEntityCommand() {
-        this.dirFileService = Ioc.instance().get(DirFileService.class)
-    }
 
     @Override
     def execute() {
