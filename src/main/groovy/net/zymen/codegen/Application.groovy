@@ -1,5 +1,7 @@
 package net.zymen.codegen
 
+import net.zymen.codegen.console.ConsoleSupport
+import net.zymen.codegen.console.Jline2ConsoleSupport
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
 
@@ -16,6 +18,7 @@ class Application {
 
     private def configure() {
         Ioc.instance().register(DirFileService.class, new SystemDirFileService())
+        Ioc.instance().register(ConsoleSupport.class, new Jline2ConsoleSupport())
     }
 
     def executeCommand(Context context, String command) {
@@ -49,6 +52,8 @@ class Application {
     }
 
     def main(String[] args) {
+        this.configure()
+
         CmdLineParser parser = new CmdLineParser(this)
 
         try {
@@ -61,7 +66,9 @@ class Application {
 
                 Context context = new Context(topPackage: topPackage)
 
-                run(context, content)
+                processBatchCommands(context, content)
+            } else {
+                processInteractiveConsole()
             }
 
         }catch(Exception e) {
@@ -69,8 +76,11 @@ class Application {
         }
     }
 
-    def run(Context context, List<String> cmd) {
-        this.configure()
+    def processInteractiveConsole() {
+        Ioc.instance().get(ConsoleSupport.class).runInteraction()
+    }
+
+    def processBatchCommands(Context context, List<String> cmd) {
         this.executeCommands(context, cmd)
     }
 }
