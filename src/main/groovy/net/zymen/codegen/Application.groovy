@@ -11,6 +11,9 @@ class Application {
     @Option(name = "-f", usage = "input file")
     File inputFile
 
+    @Option(name = "-p", usage = "top package")
+    String topPackage
+
     private def configure() {
         Ioc.instance().register(DirFileService.class, new SystemDirFileService())
     }
@@ -56,7 +59,7 @@ class Application {
                         .findAll { it.trim().length() > 1 }
                         //.removeAll { it.trim().startsWith('#') }
 
-                Context context = new Context(topPackage: "net.zymen.xxx")
+                Context context = new Context(topPackage: topPackage)
 
                 run(context, content)
             }
