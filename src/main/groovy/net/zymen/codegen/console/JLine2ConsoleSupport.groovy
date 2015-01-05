@@ -4,14 +4,15 @@ import jline.console.ConsoleReader
 import jline.console.completer.StringsCompleter
 
 
-class Jline2ConsoleSupport implements ConsoleSupport{
+class JLine2ConsoleSupport implements ConsoleSupport{
 
     @Override
     void runInteraction() {
         ConsoleReader reader = new ConsoleReader();
         reader.setPrompt("prompt> ");
 
-        reader.addCompleter(new StringsCompleter("alfa", "betta", "gamma", "delta", "xyz"))
+        //reader.addCompleter(new StringsCompleter("alfa", "betta", "gamma", "delta", "xyz"))
+        reader.addCompleter(new JLine2CommandCompleter())
 
         String line;
         PrintWriter out = new PrintWriter(reader.getOutput());

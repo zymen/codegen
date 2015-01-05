@@ -1,7 +1,7 @@
 package net.zymen.codegen
 
 import net.zymen.codegen.console.ConsoleSupport
-import net.zymen.codegen.console.Jline2ConsoleSupport
+import net.zymen.codegen.console.JLine2ConsoleSupport
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
 
@@ -18,7 +18,7 @@ class Application {
 
     private def configure() {
         Ioc.instance().register(DirFileService.class, new SystemDirFileService())
-        Ioc.instance().register(ConsoleSupport.class, new Jline2ConsoleSupport())
+        Ioc.instance().register(ConsoleSupport.class, new JLine2ConsoleSupport())
     }
 
     def executeCommand(Context context, String command) {
