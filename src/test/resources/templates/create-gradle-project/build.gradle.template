@@ -1,0 +1,35 @@
+buildscript {
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+   classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.8.RELEASE")
+  }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'spring-boot'
+
+mainClassName = '{{context.topPackage}}.App'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+    compile("org.codehaus.groovy:groovy-all:+")
+
+    compile "org.springframework.boot:spring-boot-starter-web"
+    //compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile 'org.springframework.boot:spring-boot-starter-remote-shell'
+    compile 'org.hsqldb:hsqldb:2.3.2'
+
+    //compile 'com.sun.jersey:jersey-json:1.18.2'
+    compile 'org.glassfish.jersey.ext:jersey-spring3:2.13'
+    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.13'
+    compile 'org.glassfish.jersey.core:jersey-server:2.13'
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.13'
+    compile 'org.glassfish.jersey.containers:jersey-container-jdk-http:2.13'
+}

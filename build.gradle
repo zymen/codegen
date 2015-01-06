@@ -1,6 +1,16 @@
 apply plugin: 'groovy'
+apply plugin: 'application'
 
+mainClassName = 'net.zymen.codegen.App'
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
-  compile "com.github.jknack:handlebars:2.0"
+    compile 'org.codehaus.groovy:groovy-all:2.3.8'
+    compile 'com.github.jknack:handlebars:2.0.0'
+    compile 'args4j:args4j:2.0.29'
+
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
 }

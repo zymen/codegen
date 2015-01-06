@@ -1,0 +1,15 @@
+create gradle project
+
+create file template:main output:App.groovy
+
+create entity name:Method
+create property name:name dataType:text entity:Method
+
+create entity name:MethodService layer:service
+create method name:delete entity:Method layer:service
+create method name:insert entity:Method layer:service
+create method name:update entity:Method layer:service
+
+create entity name:MethodController entity:Method layer:controller
+create method name:delete entity:Method layer:controller
+create method name:find entity:Method layer:controller

@@ -1,0 +1,6 @@
+
+	@RequestMapping(value = "/{{command.name}}", method = RequestMethod.GET)
+	@ResponseBody
+	String {{command.name}} () {
+		return "{{command.name}}"
+	}

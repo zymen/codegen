@@ -1,0 +1,5 @@
+package {{context.topPackage}}.service;
+
+class {{command.name}} {
+
+}

@@ -1,0 +1,5 @@
+package {{context.topPackage}}.model;
+
+class {{command.name}} {
+
+}
