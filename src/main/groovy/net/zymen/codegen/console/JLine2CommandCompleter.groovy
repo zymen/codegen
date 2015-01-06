@@ -23,12 +23,16 @@ class JLine2CommandCompleter implements Completer {
         }
 
         String classNameWithoutPackage = className.substring(className.lastIndexOf('.') + 1)
-        return classNameWithoutPackage
+
+        return classNameWithoutPackage.split("(?=\\p{Lu})")[0].toLowerCase()
     }
 
     @Override
     int complete(String buffer, int cursor, List<CharSequence> candidates) {
-        //if (buffer != null && buffer.length() < 2) {
+
+        //TODO: command name
+        //TODO: properties names (only not used previously)
+        //TODO: possible values for those fields (future?)
 
         availableCommands.grep { it.startsWith(buffer) }
                          .each { candidates.add(it) }

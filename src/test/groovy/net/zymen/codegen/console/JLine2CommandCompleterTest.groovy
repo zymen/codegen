@@ -6,13 +6,13 @@ import org.junit.Test
 
 class JLine2CommandCompleterTest extends ConsoleReaderTestSupport {
     @Test
-    public void test1() throws Exception {
-        console.addCompleter(new StringsCompleter("foo", "bar", "baz"));
+    void "should be possible to select commands"() throws Exception {
+        console.addCompleter(new JLine2CommandCompleter())
 
-        assertBuffer("foo ", this.createBuffer("f").tab());
+        assertBuffer("create", this.createBuffer("cre").tab())
 // single tab completes0 to unambiguous "ba"
-        assertBuffer("ba", this.createBuffer("b").tab());
-        assertBuffer("ba", this.createBuffer("ba").tab());
-        assertBuffer("baz ", this.createBuffer("baz").tab());
+        //assertBuffer("ba", this.createBuffer("b").tab());
+        //assertBuffer("ba", this.createBuffer("ba").tab());
+        //assertBuffer("baz ", this.createBuffer("baz").tab());
     }
 }
