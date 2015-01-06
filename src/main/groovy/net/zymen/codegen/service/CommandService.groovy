@@ -2,6 +2,7 @@ package net.zymen.codegen.service
 
 import net.zymen.codegen.commands.Command
 import net.zymen.codegen.commands.CommandMetadata
+import net.zymen.codegen.commands.CommandPropertyMetadata
 import org.reflections.Reflections
 
 class CommandService {
@@ -25,6 +26,7 @@ class CommandService {
         CommandMetadata metadata = new CommandMetadata()
         metadata.commandClassName = command.name
         metadata.userFriendlyName = extractUserFriendlyName(command)
+        metadata.commandProperties = extractProperties(command)
         return metadata
     }
 
@@ -47,5 +49,16 @@ class CommandService {
                 .takeWhile { it.toLowerCase().compareTo("command") }
                 .join(" ")
                 .toLowerCase()
+    }
+
+    private List<CommandPropertyMetadata> extractProperties(Class<Command> command) {
+
+        List<CommandPropertyMetadata> properties = new LinkedList<CommandPropertyMetadata>()
+
+        command.newInstance().metaClass.properties
+                .grep { !it.name.equals("class") }
+                .each { properties.add(new CommandPropertyMetadata(name: it.name ))}
+
+        return properties
     }
 }
