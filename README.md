@@ -2,16 +2,16 @@
 
 ## Example usage
 
-From command line:
+Command line:
 
-* **entity Book generate crud** - generates of CRUD (create/read/update/delete) code for whole, existing Book entity, 
+* **create entity name:Book** - creates entity Book
 * **generate entity Book** - generates empty Book entity,
-* **entity Book generate property text username** - generates property username inside entity Book,
+* **create property name:Title dataType:Text entity:Book** - creates property Title of text type inside entity Book
+
+Input file:
+
+Set of shell commands can be read and executed from external file.
 
 ## Integration tests
 
-There should be list of usages (set of commands) and application that should be generated with them. 
-
-Every integration test should generate new application and compare it with the existing one
-
-
+To be done.
