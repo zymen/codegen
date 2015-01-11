@@ -1,5 +1,8 @@
 package net.zymen.codegen
 
+import net.zymen.codegen.console.ConsoleSupport
+import net.zymen.codegen.console.JLine2ConsoleSupport
+import net.zymen.codegen.service.CommandExecutionService
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
 
@@ -16,39 +19,18 @@ class Application {
 
     private def configure() {
         Ioc.instance().register(DirFileService.class, new SystemDirFileService())
-    }
-
-    def executeCommand(Context context, String command) {
-        println command
-
-        String[] commandParts = command.split(' ')
-
-        String commandName = ""
-        Map<String, Object> parameters = new HashMap<String, Object>()
-
-        commandParts.each {
-           if (!it.contains(':')) {
-               commandName += it[0].toUpperCase() + it.substring(1).toLowerCase()
-           } else {
-               parameters.put(it.split(':')[0], it.split(':')[1])
-           }
-        }
-
-        commandName += "Command"
-
-        println "Command name = '${commandName}', parameters = ${parameters}"
-
-        parameters.put('context', context)
-
-        Command cmd = (Command)Class.forName("net.zymen.codegen.commands." + commandName).newInstance(parameters)
-        cmd.execute()
+        Ioc.instance().register(ConsoleSupport.class, new JLine2ConsoleSupport())
+        Ioc.instance().register(CommandExecutionService.class, new CommandExecutionService())
     }
 
     def executeCommands(Context context, List<String> commands) {
-        commands.each { executeCommand(context, it) }
+        CommandExecutionService service = Ioc.instance().get(CommandExecutionService.class)
+        commands.each { service(context, it) }
     }
 
     def main(String[] args) {
+        this.configure()
+
         CmdLineParser parser = new CmdLineParser(this)
 
         try {
@@ -61,7 +43,9 @@ class Application {
 
                 Context context = new Context(topPackage: topPackage)
 
-                run(context, content)
+                processBatchCommands(context, content)
+            } else {
+                processInteractiveConsole()
             }
 
         }catch(Exception e) {
@@ -69,8 +53,11 @@ class Application {
         }
     }
 
-    def run(Context context, List<String> cmd) {
-        this.configure()
+    def processInteractiveConsole() {
+        Ioc.instance().get(ConsoleSupport.class).runInteraction()
+    }
+
+    def processBatchCommands(Context context, List<String> cmd) {
         this.executeCommands(context, cmd)
     }
 }
