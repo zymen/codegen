@@ -1,17 +1,19 @@
 package net.zymen.codegen.console
 
 import jline.console.ConsoleReader
-import jline.console.completer.StringsCompleter
-
+import net.zymen.codegen.Context
+import net.zymen.codegen.Ioc
+import net.zymen.codegen.service.CommandExecutionService
 
 class JLine2ConsoleSupport implements ConsoleSupport{
 
     @Override
     void runInteraction() {
+        CommandExecutionService commandExecutionService = Ioc.instance().get(CommandExecutionService.class)
+
         ConsoleReader reader = new ConsoleReader();
         reader.setPrompt("prompt> ");
 
-        //reader.addCompleter(new StringsCompleter("alfa", "betta", "gamma", "delta", "xyz"))
         reader.addCompleter(new JLine2CommandCompleter())
 
         String line;
@@ -25,6 +27,9 @@ class JLine2ConsoleSupport implements ConsoleSupport{
             } else if (line.equalsIgnoreCase("cls")) {
                 reader.clearScreen();
             } else {
+
+                Context context = new Context(topPackage: 'net.zymen.test1')
+                commandExecutionService.execute(context, line.trim())
                 out.println("RECEIVED: " + line)
             }
         }
