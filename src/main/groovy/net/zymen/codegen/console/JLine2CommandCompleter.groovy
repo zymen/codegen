@@ -26,17 +26,26 @@ class JLine2CommandCompleter implements Completer {
                     .each { candidates.add(it.userFriendlyName) }
         } else {
 
-            candidates.add(buffer.trim() + " withData")
-            candidates.add(buffer.trim() + " name")
+            String trimmedBuffer = buffer.trim()
+
+            if (trimmedBuffer.equals(selectedCommand.userFriendlyName)) {
+                selectedCommand.commandProperties
+                        .each { candidates.add(it.name) }
+            } else {
+
+                int lastSpacePosition = trimmedBuffer.lastIndexOf(' ')
+                String lastSegment = trimmedBuffer.substring(lastSpacePosition).trim()
+                String prefix = trimmedBuffer.substring(0, lastSpacePosition + 1)
+
+                selectedCommand.commandProperties
+                        .grep { it.name.startsWith(lastSegment) }
+                        .each { candidates.add(prefix + it.name) }
+            }
         }
 
         //TODO: command name
         //TODO: properties names (only not used previously)
         //TODO: possible values for those fields (future?)
-//
-//        availableCommands.grep { it.startsWith(buffer) }
-//                         .each { candidates.add(it) }
-        //}
 
         return 0
     }
