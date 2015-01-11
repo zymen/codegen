@@ -30,7 +30,7 @@ class JLine2CommandCompleter implements Completer {
 
             if (trimmedBuffer.equals(selectedCommand.userFriendlyName)) {
                 selectedCommand.commandProperties
-                        .each { candidates.add(it.name) }
+                        .each { candidates.add(buffer + it.name) }
             } else {
 
                 int lastSpacePosition = trimmedBuffer.lastIndexOf(' ')
@@ -42,10 +42,6 @@ class JLine2CommandCompleter implements Completer {
                         .each { candidates.add(prefix + it.name) }
             }
         }
-
-        //TODO: command name
-        //TODO: properties names (only not used previously)
-        //TODO: possible values for those fields (future?)
 
         return 0
     }
