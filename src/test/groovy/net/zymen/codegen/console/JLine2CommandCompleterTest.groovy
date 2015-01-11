@@ -34,6 +34,6 @@ class JLine2CommandCompleterTest extends ConsoleReaderTestSupport {
 
     @Test
     void "should be possible to add property just after command name"() throws Exception {
-        assertBuffer("create property", this.createBuffer("create property").tab())
+        assertBuffer("create property ", this.createBuffer("create property").tab())
     }
 }

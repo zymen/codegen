@@ -30,7 +30,7 @@ class JLine2CommandCompleter implements Completer {
 
             if (trimmedBuffer.equals(selectedCommand.userFriendlyName)) {
                 selectedCommand.commandProperties
-                        .each { candidates.add(buffer + it.name) }
+                        .each { candidates.add(trimmedBuffer + " " + it.name) }
             } else {
 
                 int lastSpacePosition = trimmedBuffer.lastIndexOf(' ')
